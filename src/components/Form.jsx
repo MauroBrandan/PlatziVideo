@@ -5,37 +5,48 @@ import twitterIcon from '../assets/static/twitter-icon.png'
 
 import '../assets/styles/components/Form.scss'
 
-const Form = () => {
+const Form = (props) => {
+	const page = props.page === 'login' ? true : false
+
 	return (
 		<section className='form'>
-			<h2>Inicia Sesión</h2>
+			<h2>{page ? 'Iniciar Sesión' : 'Regístrate'}</h2>
 
 			<form className='form__container'>
+				{page ? '' : <input type='text' placeholder='Nombre' />}
 				<input type='text' placeholder='Correo' />
 				<input type='password' placeholder='Contraseña' />
-				<button>Iniciar Sesión</button>
-				<div className='form__container-label'>
-					<label>
-						<input type='checkbox' /> Recuerdame
-					</label>
-					<a href='/'>Olvidé mi contraseña</a>
-				</div>
+				<button>{page ? 'Iniciar Sesión' : 'Registrarme'}</button>
+				{page ? (
+					<div className='form__container-label'>
+						<label>
+							<input type='checkbox' /> Recuerdame
+						</label>
+						<a href='/'>Olvidé mi contraseña</a>
+					</div>
+				) : (
+					''
+				)}
 			</form>
 
 			<div className='form__social-media'>
 				<div className='form__social-media-container'>
 					<img src={googleIcon} alt='Google' />
-					Inicia sesión con Google
+					<a href='/'>Inicia sesión con Google</a>
 				</div>
 				<div className='form__social-media-container'>
 					<img src={twitterIcon} alt='Twitter' />
-					Inicia sesión con Twitter
+					<a href='/'>Inicia sesión con Twitter</a>
 				</div>
 			</div>
 
-			<p>
-				¿No tienes ninguna cuenta? <a href='/'>Regístrate</a>
-			</p>
+			{page ? (
+				<p>
+					¿No tienes ninguna cuenta? <a href='/'>Regístrate</a>
+				</p>
+			) : (
+				<a href='/'>Iniciar Sesión</a>
+			)}
 		</section>
 	)
 }

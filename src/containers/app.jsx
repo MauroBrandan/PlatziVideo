@@ -10,7 +10,7 @@ import Form from '../components/Form'
 const app = () => {
 	return (
 		<div>
-			<Form />
+			<Form page={'register'} />
 		</div>
 	)
 }
