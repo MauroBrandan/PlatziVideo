@@ -1,3 +1,6 @@
 :root {
+	/* Colors */
 	--primary-color: #8f57fd;
+	/* Font */
+	--primary-font: 'Mulish', sans-serif;
 }
