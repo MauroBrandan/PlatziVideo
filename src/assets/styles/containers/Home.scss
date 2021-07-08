@@ -1,0 +1,18 @@
+.home {
+	display: grid;
+	grid-template-rows: 100px auto min-content 100px;
+	padding: 0 24px;
+	color: white;
+}
+
+.home__search {
+	width: 55%;
+	justify-self: center;
+}
+
+.home__carousels {
+	& h2 {
+		padding-bottom: 8px;
+		margin-bottom: -32px;
+	}
+}
