@@ -5,6 +5,7 @@ import '../assets/styles/containers/Home.scss'
 import Header from '../components/Header'
 import Search from '../components/Search'
 import Carousel from '../components/Carousel'
+import CarouselItem from '../components/CarouselItem'
 import Footer from '../components/Footer'
 
 const Home = () => {
@@ -16,9 +17,13 @@ const Home = () => {
 			</section>
 			<section className='home__carousels'>
 				<h2>Mi lista</h2>
-				<Carousel />
+				<Carousel>
+					<CarouselItem />
+				</Carousel>
 				<h2>Platzi Originals</h2>
-				<Carousel />
+				<Carousel>
+					<CarouselItem />
+				</Carousel>
 			</section>
 			<Footer />
 		</section>

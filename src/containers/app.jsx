@@ -6,9 +6,9 @@ import Home from './Home'
 
 const app = () => {
 	return (
-		<div>
+		<>
 			<Home />
-		</div>
+		</>
 	)
 }
 
