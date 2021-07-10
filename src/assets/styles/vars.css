@@ -1,6 +1,7 @@
 :root {
 	/* Colors */
 	--primary-color: #8f57fd;
+	--linear-color: linear-gradient(#21c08b, #8f57fd);
 	/* Font */
 	--primary-font: 'Mulish', sans-serif;
 }
