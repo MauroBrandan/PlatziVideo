@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import '../assets/styles/containers/NotFound.scss'
 
@@ -7,9 +8,9 @@ const NotFound = () => {
 		<section className='NotFound'>
 			<h2 className='NotFound__number'>404</h2>
 			<h2 className='NotFound__title'>Page Not Found</h2>
-			<a href='/' className='NotFound__button'>
+			<Link to='/' className='NotFound__button'>
 				Regresa al Home
-			</a>
+			</Link>
 		</section>
 	)
 }

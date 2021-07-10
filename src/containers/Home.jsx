@@ -2,11 +2,9 @@ import React from 'react'
 
 import '../assets/styles/containers/Home.scss'
 
-import Header from '../components/Header'
 import Search from '../components/Search'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
-import Footer from '../components/Footer'
 import useInitialState from '../hooks/useInitialState'
 
 const API = 'http://localhost:3000/initialState'
@@ -16,8 +14,6 @@ const Home = () => {
 
 	return (
 		<section className='home'>
-			<Header />
-
 			<section className='home__search'>
 				<Search />
 			</section>
@@ -48,8 +44,6 @@ const Home = () => {
 					))}
 				</Carousel>
 			</section>
-
-			<Footer />
 		</section>
 	)
 }

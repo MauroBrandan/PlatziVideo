@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import googleIcon from '../assets/static/google-icon.png'
 import twitterIcon from '../assets/static/twitter-icon.png'
@@ -22,7 +23,7 @@ const Form = (props) => {
 						<label>
 							<input type='checkbox' /> Recuerdame
 						</label>
-						<a href='/'>Olvidé mi contraseña</a>
+						<Link to='/'>Olvidé mi contraseña</Link>
 					</div>
 				) : (
 					''
@@ -32,20 +33,20 @@ const Form = (props) => {
 			<div className='form__social-media'>
 				<div className='form__social-media-container'>
 					<img src={googleIcon} alt='Google' />
-					<a href='/'>Inicia sesión con Google</a>
+					<Link to='/'>Inicia sesión con Google</Link>
 				</div>
 				<div className='form__social-media-container'>
 					<img src={twitterIcon} alt='Twitter' />
-					<a href='/'>Inicia sesión con Twitter</a>
+					<Link to='/'>Inicia sesión con Twitter</Link>
 				</div>
 			</div>
 
 			{page ? (
 				<p>
-					¿No tienes ninguna cuenta? <a href='/'>Regístrate</a>
+					¿No tienes ninguna cuenta? <Link to='/register'>Regístrate</Link>
 				</p>
 			) : (
-				<a href='/'>Iniciar Sesión</a>
+				<Link to='/login'>Iniciar Sesión</Link>
 			)}
 		</section>
 	)
