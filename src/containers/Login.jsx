@@ -4,10 +4,11 @@ import '../assets/styles/containers/Login.scss'
 
 import Form from '../components/Form.jsx'
 
-const Login = () => {
+const Login = (props) => {
+	const historyBrowser = props.history
 	return (
 		<section className='Login'>
-			<Form page='login' />
+			<Form page='login' history={historyBrowser} />
 		</section>
 	)
 }

@@ -1,5 +1,6 @@
 {
 	"initialState": {
+		"user": {},
 		"mylist": [],
 		"trends": [
 			{

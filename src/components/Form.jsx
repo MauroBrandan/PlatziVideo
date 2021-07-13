@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { loginRequest } from '../actions'
 
 import googleIcon from '../assets/static/google-icon.png'
 import twitterIcon from '../assets/static/twitter-icon.png'
@@ -9,15 +11,46 @@ import '../assets/styles/components/Form.scss'
 const Form = (props) => {
 	const page = props.page === 'login' ? true : false
 
+	const [form, setForm] = useState({
+		email: '',
+	})
+
+	const handleInput = (event) => {
+		setForm({
+			...form,
+			[event.target.name]: event.target.value,
+		})
+	}
+
+	const handleSubmit = (event) => {
+		event.preventDefault()
+		props.loginRequest(form)
+		props.history.push('/')
+	}
+
 	return (
 		<section className='form'>
 			<h2>{page ? 'Iniciar Sesión' : 'Regístrate'}</h2>
 
-			<form className='form__container'>
+			<form className='form__container' onSubmit={handleSubmit}>
 				{page ? '' : <input type='text' placeholder='Nombre' />}
-				<input type='text' placeholder='Correo' />
-				<input type='password' placeholder='Contraseña' />
+
+				<input
+					name='email'
+					type='text'
+					placeholder='Correo'
+					onChange={handleInput}
+				/>
+
+				<input
+					name='password'
+					type='password'
+					placeholder='Contraseña'
+					onChange={handleInput}
+				/>
+
 				<button>{page ? 'Iniciar Sesión' : 'Registrarme'}</button>
+
 				{page ? (
 					<div className='form__container-label'>
 						<label>
@@ -52,4 +85,8 @@ const Form = (props) => {
 	)
 }
 
-export default Form
+const mapDispatchToProps = {
+	loginRequest,
+}
+
+export default connect(null, mapDispatchToProps)(Form)
