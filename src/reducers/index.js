@@ -5,7 +5,9 @@ const reducer = (state, action) => {
 		case actions.setFavorite:
 			return {
 				...state,
-				mylist: [...state.mylist, action.payload],
+				mylist: state.mylist.some((items) => items.id === action.payload.id)
+					? [...state.mylist]
+					: [...state.mylist, action.payload],
 			}
 
 		case actions.deleteFavorite:
