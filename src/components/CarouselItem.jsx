@@ -45,7 +45,7 @@ const CarouselItem = (props) => {
 							src={removeIcon}
 							alt='Eliminar'
 							className='carousel-item__details--icon'
-							onClick={handleSetFavorite}
+							onClick={() => handleDeleteFavorite(id)}
 						/>
 					) : (
 						<img
