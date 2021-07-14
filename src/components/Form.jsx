@@ -11,9 +11,7 @@ import '../assets/styles/components/Form.scss'
 const Form = (props) => {
 	const page = props.page === 'login' ? true : false
 
-	const [form, setForm] = useState({
-		email: '',
-	})
+	const [form, setForm] = useState(props.formState)
 
 	const handleInput = (event) => {
 		setForm({
@@ -33,7 +31,16 @@ const Form = (props) => {
 			<h2>{page ? 'Iniciar Sesión' : 'Regístrate'}</h2>
 
 			<form className='form__container' onSubmit={handleSubmit}>
-				{page ? '' : <input type='text' placeholder='Nombre' />}
+				{page ? (
+					''
+				) : (
+					<input
+						name='name'
+						type='text'
+						placeholder='Nombre'
+						onChange={handleInput}
+					/>
+				)}
 
 				<input
 					name='email'
