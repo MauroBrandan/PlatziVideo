@@ -12,6 +12,7 @@
 	"author": "Mauro Brandan <maurobrandan.mb@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
+		"md5": "^2.3.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.4",
