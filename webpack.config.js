@@ -7,6 +7,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
+		publicPath: '/',
 	},
 	resolve: {
 		extensions: ['.js', '.jsx'],
@@ -28,11 +29,7 @@ module.exports = {
 			},
 			{
 				test: /\.(s*)css$/,
-				use: [
-					{ loader: MiniCssExtractPlugin.loader },
-					'css-loader',
-					'sass-loader',
-				],
+				use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader', 'sass-loader'],
 			},
 			{
 				test: /\.(png|gif|jpg)$/,
