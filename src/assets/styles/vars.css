@@ -1,7 +1,8 @@
 :root {
 	/* Colors */
 	--primary-color: #8f57fd;
-	--linear-color: linear-gradient(#21c08b, #8f57fd);
+	--secondary-color: #21c08b;
+	--linear-color: linear-gradient(var(--secondary-color), var(--primary-font));
 	/* Font */
 	--primary-font: 'Mulish', sans-serif;
 }
