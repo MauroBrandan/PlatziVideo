@@ -2,7 +2,7 @@
 	/* Colors */
 	--primary-color: #8f57fd;
 	--secondary-color: #21c08b;
-	--linear-color: linear-gradient(var(--secondary-color), var(--primary-font));
+	--linear-color: linear-gradient(var(--secondary-color), var(--primary-color));
 	/* Font */
 	--primary-font: 'Mulish', sans-serif;
 }

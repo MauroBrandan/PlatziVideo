@@ -4,6 +4,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	&.secondary {
+		background-color: var(--secondary-color);
+	}
 }
 
 .header__img {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { logoutRequest } from '../actions'
 import gravatar from '../utils/gravatar'
 
@@ -16,8 +16,13 @@ const Header = ({ user, logoutRequest }) => {
 		logoutRequest({})
 	}
 
+	const headerClass =
+		useLocation().pathname === '/register' || useLocation().pathname === '/login'
+			? false
+			: true
+
 	return (
-		<header className='header'>
+		<header className={headerClass ? 'header' : 'header secondary'}>
 			<Link to='/'>
 				<img src={platziLogo} alt='Platzi Logo' className='header__img' />
 			</Link>
