@@ -6,12 +6,15 @@
 	"scripts": {
 		"build": "webpack --mode production",
 		"start": "webpack serve --open --mode development",
+		"start:dev": "nodemon src/server",
 		"start-mobile": "webpack serve --open --mode development --host 192.168.1.8",
 		"fake-api": "npx json-server --watch initialState.json"
 	},
 	"author": "Mauro Brandan <maurobrandan.mb@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
 		"md5": "^2.3.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
@@ -23,6 +26,7 @@
 		"@babel/core": "^7.15.0",
 		"@babel/preset-env": "^7.15.0",
 		"@babel/preset-react": "^7.14.5",
+		"@babel/register": "^7.14.5",
 		"babel-loader": "^8.2.2",
 		"css-loader": "^5.2.7",
 		"file-loader": "^6.2.0",
@@ -30,6 +34,7 @@
 		"html-webpack-plugin": "^5.3.2",
 		"mini-css-extract-plugin": "^1.6.2",
 		"node-sass": "^6.0.1",
+		"nodemon": "^2.0.12",
 		"sass-loader": "^12.1.0",
 		"webpack": "^5.49.0",
 		"webpack-cli": "^4.7.2",
