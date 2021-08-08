@@ -5,7 +5,7 @@ import { createStore, compose } from 'redux'
 
 import reducer from './reducers'
 import App from './routes/App'
-import { initialState } from '../initialState.json'
+import { initialState } from '../../initialState.json'
 
 const container = document.getElementById('app')
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
