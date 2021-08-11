@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import webpack from 'webpack'
+import helmet from 'helmet'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
@@ -31,6 +32,11 @@ if (ENV === 'development') {
 
 	app.use(webpackDevMiddleware(compiler, serverConfig))
 	app.use(webpackHotMiddleware(compiler))
+} else {
+	app.use(express.static(`${__dirname}/public`))
+	app.use(helmet())
+	app.use(helmet.permittedCrossDomainPolicies())
+	app.disable('x-powered-by')
 }
 
 const renderApp = (req, res) => {
@@ -67,7 +73,10 @@ const setResponse = (html, preloadedState) => {
 			<body>
 				<div id="app">${html}</div>
 				<script>
-        			window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+        			window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
+								/</g,
+								'\\u003c'
+							)}
       			</script>
 				<script src="assets/app.js" type="text/javascript"></script>
 			</body>
@@ -78,5 +87,5 @@ const setResponse = (html, preloadedState) => {
 app.get('*', renderApp)
 
 app.listen(PORT, (err) => {
-	err ? console.log(err) : console.log(`Server running on http://localhost:${PORT}`)
+	err ? console.log(err) : console.log(`Server running on port ${PORT}`)
 })
