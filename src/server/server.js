@@ -13,6 +13,7 @@ import serverRoutes from '../frontend/routes/serverRoutes'
 import reducer from '../frontend/reducers'
 import initialState from '../frontend/initialState'
 import Layout from '../frontend/components/Layout'
+import getManifest from './getManifest'
 
 const app = express()
 
@@ -33,6 +34,10 @@ if (ENV === 'development') {
 	app.use(webpackDevMiddleware(compiler, serverConfig))
 	app.use(webpackHotMiddleware(compiler))
 } else {
+	app.use((req, res, next) => {
+		if (!req.hashManifest) req.hashManifest = getManifest()
+		next()
+	})
 	app.use(express.static(`${__dirname}/public`))
 	app.use(helmet())
 	app.use(helmet.permittedCrossDomainPolicies())
@@ -50,10 +55,13 @@ const renderApp = (req, res) => {
 		</Provider>
 	)
 
-	res.send(setResponse(html, preloadedState))
+	res.send(setResponse(html, preloadedState, req.hashManifest))
 }
 
-const setResponse = (html, preloadedState) => {
+const setResponse = (html, preloadedState, manifest) => {
+	const mainBuild = manifest ? manifest['main.js'] : 'assets/app.js'
+	const mainStyles = manifest ? manifest['main.css'] : 'assets/app.css'
+
 	return `
 		<!DOCTYPE html>
 		<html lang="en">
@@ -67,7 +75,7 @@ const setResponse = (html, preloadedState) => {
 					href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;500;700&display=swap"
 					rel="stylesheet"
 				/>
-				<link rel="stylesheet" href="assets/app.css" type="text/css">
+				<link rel="stylesheet" href="${mainStyles}" type="text/css">
 				<title>Platzi Video</title>
 			</head>
 			<body>
@@ -78,7 +86,7 @@ const setResponse = (html, preloadedState) => {
 								'\\u003c'
 							)}
       			</script>
-				<script src="assets/app.js" type="text/javascript"></script>
+				<script src="${mainBuild}" type="text/javascript"></script>
 			</body>
 		</html>
 		`
