@@ -29,6 +29,23 @@ module.exports = {
 	optimization: {
 		minimize: true,
 		minimizer: [new TerserPlugin()],
+		splitChunks: {
+			chunks: 'async',
+			cacheGroups: {
+				vendors: {
+					name: 'vendors',
+					chunks: 'all',
+					reuseExistingChunk: true,
+					priority: 1,
+					filename: isDev ? 'assets/vendor.js' : 'assets/vendor-[contenthash].js',
+					enforce: true,
+					test(module) {
+						const name = module.nameForCondition && module.nameForCondition()
+						return (chunk) => chunk.name !== 'vendors' && /[\\/]node_modules[\\/]/.test(name)
+					},
+				},
+			},
+		},
 	},
 	module: {
 		rules: [
