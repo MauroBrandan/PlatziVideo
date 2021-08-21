@@ -8,6 +8,10 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { StaticRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
+import passport from 'passport'
+import axios from 'axios'
+import boom from '@hapi/boom'
+import cookieParser from 'cookie-parser'
 
 import serverRoutes from '../frontend/routes/serverRoutes'
 import reducer from '../frontend/reducers'
@@ -15,12 +19,21 @@ import initialState from '../frontend/initialState'
 import Layout from '../frontend/components/Layout'
 import getManifest from './getManifest'
 
+require('./utils/auth/strategies/basic')
+
 const app = express()
+
+app.use(express.json)
+app.use(cookieParser)
+app.use(passport.initialize())
+app.use(passport.session())
 
 dotenv.config()
 const { ENV, PORT } = process.env
 
-if (ENV === 'development') {
+const dev = ENV === 'development'
+
+if (dev) {
 	console.log('Development config')
 
 	const webpackConfig = require('../../webpack.config')
@@ -93,6 +106,49 @@ const setResponse = (html, preloadedState, manifest) => {
 		</html>
 		`
 }
+
+app.post('/auth/sign-in', async function (req, res, next) {
+	passport.authenticate('basic', function (error, data) {
+		try {
+			if (error || !data) {
+				next(boom.unauthorized())
+			}
+
+			req.login(data, { session: false }, async function (error) {
+				if (error) {
+					next(error)
+				}
+
+				const { token, ...user } = data
+
+				res.cookie('token', token, {
+					httpOnly: !dev,
+					secure: !dev,
+				})
+
+				res.status(200).json(user)
+			})
+		} catch (error) {
+			next(error)
+		}
+	})(req, res, next)
+})
+
+app.post('/auth/sign-up', async function (req, res, next) {
+	const { body: user } = req
+
+	try {
+		await axios({
+			url: `${config.apiUrl}/api/auth/sign-up`,
+			method: 'post',
+			data: user,
+		})
+
+		res.status(201).json({ message: 'user created' })
+	} catch (error) {
+		next(error)
+	}
+})
 
 app.get('*', renderApp)
 
