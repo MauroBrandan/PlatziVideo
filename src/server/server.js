@@ -23,13 +23,13 @@ require('./utils/auth/strategies/basic')
 
 const app = express()
 
-app.use(express.json)
-app.use(cookieParser)
+app.use(express.json())
+app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
 
 dotenv.config()
-const { ENV, PORT } = process.env
+const { ENV, PORT, API_URL } = process.env
 
 const dev = ENV === 'development'
 
@@ -138,13 +138,21 @@ app.post('/auth/sign-up', async function (req, res, next) {
 	const { body: user } = req
 
 	try {
-		await axios({
-			url: `${config.apiUrl}/api/auth/sign-up`,
+		const userData = await axios({
+			url: `${API_URL}/api/auth/sign-up`,
 			method: 'post',
-			data: user,
+			data: {
+				'email': user.email,
+				'name': user.name,
+				'password': user.password,
+			},
 		})
 
-		res.status(201).json({ message: 'user created' })
+		res.status(201).json({
+			name: req.body.name,
+			email: req.body.email,
+			id: userData.data.id,
+		})
 	} catch (error) {
 		next(error)
 	}

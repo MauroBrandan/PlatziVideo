@@ -2,7 +2,7 @@ const passport = require('passport')
 const { BasicStrategy } = require('passport-http')
 const boom = require('@hapi/boom')
 const axios = require('axios')
-dotenv.config()
+require('dotenv').config()
 const { API_URL, API_KEY_TOKEN } = process.env
 
 passport.use(

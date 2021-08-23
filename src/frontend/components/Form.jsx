@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { loginRequest } from '../actions'
+import { registerUser } from '../actions'
 
 import googleIcon from '../assets/static/google-icon.png'
 import twitterIcon from '../assets/static/twitter-icon.png'
@@ -22,8 +22,7 @@ const Form = (props) => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		props.loginRequest(form)
-		props.history.push('/')
+		props.registerUser(form, '/login')
 	}
 
 	return (
@@ -56,7 +55,7 @@ const Form = (props) => {
 					onChange={handleInput}
 				/>
 
-				<button>{page ? 'Iniciar Sesión' : 'Registrarme'}</button>
+				<button type='submit'>{page ? 'Iniciar Sesión' : 'Registrarme'}</button>
 
 				{page ? (
 					<div className='form__container-label'>
@@ -93,7 +92,7 @@ const Form = (props) => {
 }
 
 const mapDispatchToProps = {
-	loginRequest,
+	registerUser,
 }
 
 export default connect(null, mapDispatchToProps)(Form)
