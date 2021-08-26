@@ -15,7 +15,6 @@ import cookieParser from 'cookie-parser'
 
 import serverRoutes from '../frontend/routes/serverRoutes'
 import reducer from '../frontend/reducers'
-import initialState from '../frontend/initialState'
 import Layout from '../frontend/components/Layout'
 import getManifest from './getManifest'
 
@@ -58,12 +57,38 @@ if (dev) {
 }
 
 const renderApp = (req, res) => {
+	let initialState
+	const { email, name, id } = req.cookies
+
+	if (id) {
+		initialState = {
+		  user: {
+			email, name, id
+		  },
+		  playing: {},
+		  search: [],
+		  mylist: [],
+		  trends: [],
+		  originals: []
+		}
+	  } else {
+		initialState = {
+		  user: {},
+		  playing: {},
+		  search: [],
+		  mylist: [],
+		  trends: [],
+		  originals: []
+		}
+	  }
+
 	const store = createStore(reducer, initialState)
 	const preloadedState = store.getState()
+	const isLogged = (initialState.user.id)
 	const html = renderToString(
 		<Provider store={store}>
 			<StaticRouter location={req.url} context={{}}>
-				<Layout>{renderRoutes(serverRoutes)}</Layout>
+				<Layout>{renderRoutes(serverRoutes(isLogged))}</Layout>
 			</StaticRouter>
 		</Provider>
 	)
