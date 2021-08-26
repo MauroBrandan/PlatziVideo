@@ -114,9 +114,9 @@ app.post('/auth/sign-in', async function (req, res, next) {
 				next(boom.unauthorized())
 			}
 
-			req.login(data, { session: false }, async function (error) {
-				if (error) {
-					next(error)
+			req.login(data, { session: false }, async function (err) {
+				if (err) {
+					next(err)
 				}
 
 				const { token, ...user } = data
