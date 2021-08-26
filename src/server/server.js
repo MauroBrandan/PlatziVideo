@@ -56,31 +56,38 @@ if (dev) {
 	app.disable('x-powered-by')
 }
 
-const renderApp = (req, res) => {
+const renderApp = async (req, res) => {
 	let initialState
-	const { email, name, id } = req.cookies
+	const { token, email, name, id } = req.cookies
 
-	if (id) {
+	try {
+		let moviesList = await axios({
+			url: `${API_URL}/api/movies`,
+			headers: { Authorization: `Bearer ${token}` },
+			method: 'get'
+		})
+		moviesList = moviesList.data.data
+
 		initialState = {
-		  user: {
-			email, name, id
-		  },
-		  playing: {},
-		  search: [],
-		  mylist: [],
-		  trends: [],
-		  originals: []
+			user: {
+			  email, name, id
+			},
+			playing: {},
+			search: [],
+			mylist: [],
+			trends: moviesList.filter(movie => movie.contentRating === 'PG' && movie._id),
+			originals: moviesList.filter(movie => movie.contentRating === 'G' && movie._id),
 		}
-	  } else {
+	} catch (err) {
 		initialState = {
-		  user: {},
-		  playing: {},
-		  search: [],
-		  mylist: [],
-		  trends: [],
-		  originals: []
+			user: {},
+			playing: {},
+			search: [],
+			mylist: [],
+			trends: [],
+			originals: []
 		}
-	  }
+	}
 
 	const store = createStore(reducer, initialState)
 	const preloadedState = store.getState()
