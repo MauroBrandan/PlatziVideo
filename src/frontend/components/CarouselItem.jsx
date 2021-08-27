@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setFavorite, deleteFavorite } from '../actions'
+import { addUserMovie, deleteUserMovie } from '../actions'
 
 import playIcon from '../assets/static/play-icon.png'
 import plusIcon from '../assets/static/plus-icon.png'
@@ -10,19 +10,22 @@ import removeIcon from '../assets/static/remove-icon.png'
 const CarouselItem = (props) => {
 	const {
 		id,
+		_id,
 		cover,
 		title,
 		year,
 		contentRating,
 		duration,
-		setFavorite,
-		deleteFavorite,
+		addUserMovie,
+		deleteUserMovie,
+		userMovieId,
 		isList,
 	} = props
 
 	const handleSetFavorite = () => {
-		setFavorite({
+		addUserMovie({
 			id,
+			_id,
 			cover,
 			title,
 			year,
@@ -31,8 +34,8 @@ const CarouselItem = (props) => {
 		})
 	}
 
-	const handleDeleteFavorite = (itemId) => {
-		deleteFavorite(itemId)
+	const handleDeleteFavorite = (userMovieId, id) => {
+		deleteUserMovie(userMovieId, id)
 	}
 
 	return (
@@ -53,7 +56,7 @@ const CarouselItem = (props) => {
 							src={removeIcon}
 							alt='Eliminar'
 							className='carousel-item__details--icon'
-							onClick={() => handleDeleteFavorite(id)}
+							onClick={() => handleDeleteFavorite(userMovieId, id)}
 						/>
 					) : (
 						<img
@@ -74,8 +77,8 @@ const CarouselItem = (props) => {
 }
 
 const mapDispatchToProps = {
-	setFavorite,
-	deleteFavorite,
+	addUserMovie,
+	deleteUserMovie,
 }
 
 export default connect(null, mapDispatchToProps)(CarouselItem)

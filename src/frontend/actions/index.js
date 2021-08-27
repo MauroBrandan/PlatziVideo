@@ -74,3 +74,38 @@ export const loginUser = ({ email, password }, redirectUrl) => {
 			.catch((error) => console.error(error))
 	}
 }
+
+export const addUserMovie = ({ _id, ...movie }) => {
+	const data = {
+		movieId: _id,
+	}
+
+	return (dispatch) => {
+		axios({
+			url: '/user-movies',
+			method: 'post',
+			data: data,
+		})
+			.then(() => {
+				dispatch(setFavorite(movie))
+			})
+			.catch((error) => console.error(error))
+	}
+}
+
+export const deleteUserMovie = (userMovieId, id) => {
+	if (!userMovieId) {
+		return (dispatch) => dispatch(deleteFavorite(id))
+	}
+
+	return (dispatch) => {
+		axios({
+			url: `/user-movies/${userMovieId}`,
+			method: 'delete',
+		})
+			.then(() => {
+				dispatch(deleteFavorite(id))
+			})
+			.catch((error) => console.error(error))
+	}
+}

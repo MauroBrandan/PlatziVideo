@@ -68,13 +68,27 @@ const renderApp = async (req, res) => {
 		})
 		moviesList = moviesList.data.data
 
+		let userMoviesList = await axios({
+			url: `${API_URL}/api/user-movies/?userId=${id}`,
+			headers: { Authorization: `Bearer ${token}` },
+			method: 'get',
+		})
+		userMoviesList = userMoviesList.data.data
+
 		initialState = {
 			user: {
 			  email, name, id
 			},
 			playing: {},
 			search: [],
-			mylist: [],
+			mylist: moviesList.filter(movie => userMoviesList.some( userMovie => movie._id === userMovie.movieId)).map( movie => {
+				const filteredMovie = userMoviesList.find(userMovie => movie._id === userMovie.movieId)
+				if (filteredMovie) {
+				  movie.userMovieId = filteredMovie._id
+				}
+				return movie
+			  	}
+			),
 			trends: moviesList.filter(movie => movie.contentRating === 'PG' && movie._id),
 			originals: moviesList.filter(movie => movie.contentRating === 'G' && movie._id),
 		}
@@ -187,6 +201,56 @@ app.post('/auth/sign-up', async function (req, res, next) {
 		})
 	} catch (error) {
 		next(error)
+	}
+})
+
+app.post('/user-movies', async (req, res, next) => {
+	try {
+	  const { body: userMovie } = req
+	  const { id, token } = req.cookies
+  
+	  const { data, status } = await axios({
+		url: `${API_URL}/api/user-movies`,
+		headers: { Authorization: `Bearer ${token}` },
+		method: 'post',
+		data: {
+			userId: id,
+			movieId: userMovie.movieId,
+		}
+	  })
+  
+	  const {
+		data: { movieExist },
+	  } = data
+  
+	  if (status !== 200 && status !== 201) {
+		return next(boom.badImplementation())
+	  }
+  
+	  const statusCode = movieExist ? 200 : 201
+  
+	  return res.status(statusCode).json(data)
+	} catch (error) {
+	  next(error)
+	}
+})
+
+app.delete('/user-movies/:userMovieId', async (req, res, next) => {
+	const { userMovieId } = req.params
+	const { token } = req.cookies
+  
+	try {
+	  const response = await axios({
+		url: `${API_URL}/api/user-movies/${userMovieId}`,
+		method: 'DELETE',
+		headers: {
+		  Authorization: `Bearer ${token}`,
+		},
+	  })
+  
+	  res.status(200).json(response.data)
+	} catch (error) {
+	  next(error)
 	}
 })
 
