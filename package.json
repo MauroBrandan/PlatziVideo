@@ -6,7 +6,8 @@
 	"scripts": {
 		"build": "webpack-cli --config webpack.config.js",
 		"start": "nodemon src/server",
-		"test": "jest"
+		"test": "jest",
+		"coverage": "jest --coverage"
 	},
 	"author": "Mauro Brandan <maurobrandan.mb@gmail.com>",
 	"license": "MIT",
@@ -61,6 +62,7 @@
 	},
 	"jest": {
 		"testEnvironment": "jsdom",
+		"verbose": true,
 		"setupFilesAfterEnv": [
 			"<rootDir>/src/frontend/__test__/setupTest.js"
 		],
