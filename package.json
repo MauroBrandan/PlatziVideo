@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "webpack-cli --config webpack.config.js",
-		"start": "nodemon src/server"
+		"start": "nodemon src/server",
+		"test": "jest"
 	},
 	"author": "Mauro Brandan <maurobrandan.mb@gmail.com>",
 	"license": "MIT",
@@ -41,10 +42,13 @@
 		"@babel/preset-env": "^7.15.0",
 		"@babel/preset-react": "^7.14.5",
 		"@babel/register": "^7.14.5",
+		"@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
 		"babel-loader": "^8.2.2",
 		"compression-webpack-plugin": "^8.0.1",
 		"css-loader": "^5.2.7",
+		"enzyme": "^3.11.0",
 		"file-loader": "5.1.0",
+		"jest": "^27.1.0",
 		"mini-css-extract-plugin": "^1.6.2",
 		"node-sass": "^6.0.1",
 		"nodemon": "^2.0.12",
@@ -53,5 +57,15 @@
 		"webpack-cli": "^4.7.2",
 		"webpack-dev-server": "^3.11.2",
 		"webpack-manifest-plugin": "^4.0.2"
+	},
+	"jest": {
+		"testEnvironment": "jsdom",
+		"setupFilesAfterEnv": [
+			"<rootDir>/src/frontend/__test__/setupTest.js"
+		],
+		"moduleNameMapper": {
+			"\\.(jp|jpeg|png|gif)$": "<rootDir>/src/frontend/__mocks__/fileMock.js",
+			"\\.(scss|css|sass)$": "<rootDir>/src/frontend/__mocks__/styleMock.js"
+		}
 	}
 }
