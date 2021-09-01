@@ -1,8 +1,8 @@
 {
 	"name": "platzivideo",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "src/server/index.js",
 	"scripts": {
 		"build": "webpack-cli --config webpack.config.js",
 		"start": "nodemon src/server",
@@ -70,5 +70,8 @@
 			"\\.(jp|jpeg|png|gif)$": "<rootDir>/src/frontend/__mocks__/fileMock.js",
 			"\\.(scss|css|sass)$": "<rootDir>/src/frontend/__mocks__/styleMock.js"
 		}
+	},
+	"engines": {
+		"node": "12.16.x"
 	}
 }
