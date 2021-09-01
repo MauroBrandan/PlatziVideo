@@ -48,7 +48,16 @@ export const registerUser = (payload, redirectUrl) => {
 			.then(() => {
 				window.location.href = redirectUrl
 			})
-			.catch((error) => console.error(error))
+			.catch((error) => {
+				Swal.fire({
+					text: 'Complete todos los campos',
+					icon: 'error',
+					showConfirmButton: false,
+					toast: true,
+					position: 'top',
+					timer: 5000,
+				})
+			})
 	}
 }
 
@@ -71,7 +80,16 @@ export const loginUser = ({ email, password }, redirectUrl) => {
 			.then(() => {
 				window.location.href = redirectUrl
 			})
-			.catch((error) => console.error(error))
+			.catch((error) => {
+				Swal.fire({
+					text: 'Correo o contraseña incorrectos',
+					icon: 'error',
+					showConfirmButton: false,
+					toast: true,
+					position: 'top',
+					timer: 5000,
+				})
+			})
 	}
 }
 
