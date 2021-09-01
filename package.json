@@ -21,6 +21,7 @@
 		"asset-require-hook": "^1.2.0",
 		"axios": "^0.21.1",
 		"cookie-parser": "^1.4.5",
+		"compression-webpack-plugin": "^8.0.1",
 		"dotenv": "^10.0.0",
 		"express": "^4.17.1",
 		"express-session": "^1.17.2",
@@ -41,12 +42,12 @@
 		"redux-thunk": "^2.3.0",
 		"webpack": "^5.49.0",
 		"webpack-dev-middleware": "^5.0.0",
-		"webpack-hot-middleware": "^2.25.0"
+		"webpack-hot-middleware": "^2.25.0",
+		"webpack-manifest-plugin": "^4.0.2"
 	},
 	"devDependencies": {
 		"@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
 		"babel-loader": "^8.2.2",
-		"compression-webpack-plugin": "^8.0.1",
 		"css-loader": "^5.2.7",
 		"enzyme": "^3.11.0",
 		"file-loader": "5.1.0",
@@ -57,8 +58,7 @@
 		"sass-loader": "^12.1.0",
 		"terser-webpack-plugin": "^5.1.4",
 		"webpack-cli": "^4.7.2",
-		"webpack-dev-server": "^3.11.2",
-		"webpack-manifest-plugin": "^4.0.2"
+		"webpack-dev-server": "^3.11.2"
 	},
 	"jest": {
 		"testEnvironment": "jsdom",
