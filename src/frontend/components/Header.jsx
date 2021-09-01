@@ -43,6 +43,7 @@ const Header = ({ user, logoutRequest }) => {
 					<p>Perfil</p>
 				</div>
 				<ul>
+					{hasUser && <li>¡Hola {user.name}!</li>}
 					<li>
 						<Link to='/'>Cuenta</Link>
 					</li>

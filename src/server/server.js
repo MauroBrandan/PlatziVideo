@@ -90,7 +90,7 @@ const renderApp = async (req, res) => {
 			  	}
 			),
 			trends: moviesList.filter(movie => movie.contentRating === 'PG' && movie._id),
-			originals: moviesList.filter(movie => movie.contentRating === 'G' && movie._id),
+			originals: moviesList.filter(movie => movie.contentRating != 'PG' && movie._id),
 		}
 	} catch (err) {
 		initialState = {
@@ -146,6 +146,7 @@ const setResponse = (html, preloadedState, manifest) => {
 								'\\u003c'
 							)}
       			</script>
+				<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 				<script src="${mainBuild}" type="text/javascript"></script>
 				<script src="${vendorBuild}" type="text/javascript"></script>
 			</body>
